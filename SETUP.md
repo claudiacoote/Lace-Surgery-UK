@@ -12,3 +12,6 @@ Static site + Vercel serverless booking request endpoint. **Requests cannot be s
 **Current scope:** secure booking request intake, stored in Supabase, with notification attempts to lacesurgeryuk@gmail.com and claudiaacootee@gmail.com. This is NOT a completed approval, Stripe payment, photo-upload, tracking or admin system. Do not advertise payments or automatic approvals until those are implemented and tested.
 
 The Instagram/TikTok gallery requires authorised feed data. No invented customer photos are shown.
+
+## Optional photographs
+Customers may attach up to two JPG/PNG/WebP images (1 MB each) to their initial request. Configure the private `wig-photos` Supabase Storage bucket by running the updated schema. If customers do not have images at hand, the website instructs them to email photos or a video attachment/link later with their booking reference. This later email is a manual process, not an automated upload or linking feature. Photo uploads may fail independently; verify the response and server logs during testing.
