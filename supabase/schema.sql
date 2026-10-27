@@ -15,3 +15,16 @@ create table if not exists public.bookings (
 );
 alter table public.bookings enable row level security;
 -- No public table policies: only the server-side service role may read/write.
+
+-- Create a private storage bucket for optional booking photographs.
+insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
+values ('wig-photos','wig-photos',false,1048576,array['image/jpeg','image/png','image/webp'])
+on conflict (id) do nothing;
+create table if not exists public.booking_photos (
+ id uuid primary key default gen_random_uuid(),
+ reference text not null references public.bookings(reference) on delete cascade,
+ storage_path text unique not null,
+ created_at timestamptz not null default now()
+);
+alter table public.booking_photos enable row level security;
+-- No public policies; uploaded images remain private.
